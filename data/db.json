@@ -1,0 +1,58 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "product_name": "Apple",
+      "icon": "🍎",
+      "current_points": 61,
+      "level_points": 20,
+      "upgrade_cost": 2.5,
+      "current_time": 20
+    },
+    {
+      "id": 2,
+      "product_name": "Orange",
+      "icon": "🍊",
+      "current_points": 221,
+      "level_points": 20,
+      "upgrade_cost": 3,
+      "current_time": 25
+    },
+    {
+      "id": 3,
+      "product_name": "Candy",
+      "icon": "🍬",
+      "current_points": 174,
+      "level_points": 20,
+      "upgrade_cost": 3.5,
+      "current_time": 30
+    },
+    {
+      "id": 4,
+      "product_name": "Banana",
+      "icon": "🍌",
+      "current_points": 55,
+      "level_points": 20,
+      "upgrade_cost": 4,
+      "current_time": 40
+    },
+    {
+      "id": 5,
+      "product_name": "Avocado",
+      "icon": "🥑",
+      "current_points": 12,
+      "level_points": 20,
+      "upgrade_cost": 4.5,
+      "current_time": 50
+    },
+    {
+      "id": 6,
+      "product_name": "Watermelon",
+      "icon": "🍉",
+      "current_points": 25,
+      "level_points": 20,
+      "upgrade_cost": 5,
+      "current_time": 60
+    }
+  ]
+}

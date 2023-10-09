@@ -90,8 +90,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
-  column-gap: 2.4rem;
-  row-gap: 5.6rem;
+  gap: 5.6rem;
 }
 
 .product {
@@ -167,7 +166,6 @@
   width: 0%;
   height: 100%;
   border-radius: 2.5rem;
-  /* transition: all 5s; */
 }
 
 .upgrade-time {

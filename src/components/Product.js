@@ -1,85 +1,56 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function Product({
   product: {
-    product,
+    id,
+    product_name,
     icon,
-    currentLevel,
-    maximumLevel,
-    upgradeCost,
-    levels: { level1, level2, level3, level4, level5 },
+    current_points,
+    level_points,
+    upgrade_cost,
+    current_time,
   },
 }) {
-  const nextLevelValue = function () {
-    let level = 1;
-
-    if (currentLevel >= 0 && currentLevel <= level1.value) {
-      level = level1.value;
-    } else if (currentLevel >= level1.value && currentLevel <= level2.value) {
-      level = level2.value;
-    } else if (currentLevel >= level2.value && currentLevel <= level3.value) {
-      level = level3.value;
-    } else if (currentLevel >= level3.value && currentLevel <= level4.value) {
-      level = level4.value;
-    } else if (currentLevel >= level4.value && currentLevel <= level5.value) {
-      level = level5.value;
-    }
-
-    return level;
+  // Here we calculated the current level of the product
+  const calcLevel = function () {
+    return current_points / level_points;
   };
 
-  const calculatedUpgradeCost = function () {
-    let cost = upgradeCost;
+  const currentLevel = calcLevel();
 
-    if (currentLevel >= 0 && currentLevel <= level1.value) {
-      cost *= level1.level;
-    } else if (currentLevel >= level1.value && currentLevel <= level2.value) {
-      cost *= level2.level;
-    } else if (currentLevel >= level2.value && currentLevel <= level3.value) {
-      cost *= level3.level;
-    } else if (currentLevel >= level3.value && currentLevel <= level4.value) {
-      cost *= level4.level;
-    } else if (currentLevel >= level4.value && currentLevel <= level5.value) {
-      cost *= level5.level;
-    }
-
-    return cost;
+  // Here we calculated the upgrade cost of the product
+  const calcUpgradeCost = function () {
+    return (upgrade_cost * currentLevel).toFixed(3);
   };
 
-  const loadingTime = function () {
-    let time = 0;
+  const currentUpgradeCost = calcUpgradeCost();
 
-    if (currentLevel >= 0 && currentLevel <= level1.value) {
-      time = level1.time;
-    } else if (currentLevel >= level1.value && currentLevel <= level2.value) {
-      time = level2.time;
-    } else if (currentLevel >= level2.value && currentLevel <= level3.value) {
-      time = level3.time;
-    } else if (currentLevel >= level3.value && currentLevel <= level4.value) {
-      time = level4.time;
-    } else if (currentLevel >= level4.value && currentLevel <= level5.value) {
-      time = level5.time;
-    }
-
-    return time;
+  // Here we calculated the loading time of the product
+  const calcLoadingTime = function () {
+    return Math.trunc(
+      current_time /
+        (currentLevel > 1 ? Math.trunc(currentLevel) : currentLevel)
+    );
   };
 
-  const loadTime = loadingTime();
+  const loadingTime = calcLoadingTime();
 
   const [loading, setLoading] = useState(false);
+  const [time, setTime] = useState(0);
 
   const style = {
-    transition: loading ? `all ${loadTime}s linear` : "none",
+    transition: loading ? `all ${loadingTime}s linear` : "none",
     width: `${loading ? "100" : "0"}%`,
   };
 
   const handleClick = () => {
     setLoading(!loading);
-    let time = 0;
+    // let timee = 0;
 
     const tm = setInterval(() => {
-      time += 1;
-      if (time === loadTime) {
+      setTime(time + 1);
+      // timee += 1;
+      if (time === loadingTime) {
         clearInterval(tm);
         console.log("Gata");
         setLoading(false);
@@ -92,7 +63,7 @@ function Product({
       <button className="product-btn" onClick={loading ? null : handleClick}>
         {icon}
         <div className="level">
-          {currentLevel}/{nextLevelValue()}
+          {current_points}/{(Math.trunc(currentLevel) + 1) * level_points}
         </div>
       </button>
       <div className="stats">
@@ -115,9 +86,9 @@ function Product({
         </div>
         <div className="upgrade-time">
           <button className="upgrade-btn">
-            Upgrade({calculatedUpgradeCost()}$)
+            Upgrade({currentUpgradeCost}$)
           </button>
-          <div className="time">{loadTime}s</div>
+          <div className="time">{loadingTime}s</div>
         </div>
       </div>
     </div>

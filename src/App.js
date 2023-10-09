@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import Header from "./components/Header";
 import Product from "./components/Product";
-import { data } from "./data";
 import "./App.css";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
+  const [data, setData] = useState(null);
+
   useEffect(() => {
     setIsOpen(!isOpen);
+    const fetchData = async () => {
+      await axios
+        .get("http://localhost:3030/products")
+        .then((res) => setData(res.data));
+    };
+    fetchData();
   }, []);
-
-  // console.log(data);
 
   const close = {
     opacity: "0",
@@ -36,9 +42,10 @@ function App() {
       </div>
       <Header />
       <div className="products">
-        {data.map((product) => (
-          <Product key={product.product} product={product} />
-        ))}
+        {!!data &&
+          data.map((product) => (
+            <Product key={product.product_name} product={product} />
+          ))}
       </div>
     </div>
   );
