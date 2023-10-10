@@ -7,6 +7,7 @@ import "./App.css";
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState(null);
+  const [balance, setBalance] = useState(0);
 
   useEffect(() => {
     setIsOpen(!isOpen);
@@ -40,11 +41,16 @@ function App() {
           ❌
         </div>
       </div>
-      <Header />
+      <Header balance={balance} setBalance={setBalance} />
       <div className="products">
         {!!data &&
           data.map((product) => (
-            <Product key={product.product_name} product={product} />
+            <Product
+              key={product.product_name}
+              product={product}
+              balance={balance}
+              setBalance={setBalance}
+            />
           ))}
       </div>
     </div>

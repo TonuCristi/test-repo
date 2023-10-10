@@ -1,16 +1,20 @@
 import { useState } from "react";
 
-function Product({
-  product: {
-    id,
-    product_name,
-    icon,
-    current_points,
-    level_points,
-    upgrade_cost,
-    current_time,
+function Product(
+  {
+    product: {
+      id,
+      product_name,
+      icon,
+      current_points,
+      level_points,
+      upgrade_cost,
+      current_time,
+    },
   },
-}) {
+  balance,
+  setBalance
+) {
   // Here we calculated the current level of the product
   const calcLevel = function () {
     return current_points / level_points;
@@ -27,10 +31,8 @@ function Product({
 
   // Here we calculated the loading time of the product
   const calcLoadingTime = function () {
-    return Math.trunc(
-      current_time /
-        (currentLevel > 1 ? Math.trunc(currentLevel) : currentLevel)
-    );
+    console.log(Math.trunc(current_time / Math.trunc(currentLevel + 1)));
+    return Math.trunc(current_time / Math.trunc(currentLevel + 1));
   };
 
   const loadingTime = calcLoadingTime();
@@ -45,15 +47,16 @@ function Product({
 
   const handleClick = () => {
     setLoading(!loading);
-    // let timee = 0;
+    let progressTime = 0;
 
+    console.log(time);
     const tm = setInterval(() => {
-      setTime(time + 1);
-      // timee += 1;
-      if (time === loadingTime) {
+      progressTime += 1;
+      setTime((prev) => prev + 1);
+      if (progressTime === loadingTime) {
         clearInterval(tm);
+        setLoading(loading);
         console.log("Gata");
-        setLoading(false);
       }
     }, 1000);
   };
@@ -88,7 +91,7 @@ function Product({
           <button className="upgrade-btn">
             Upgrade({currentUpgradeCost}$)
           </button>
-          <div className="time">{loadingTime}s</div>
+          <div className="time">{loading ? time : loadingTime}s</div>
         </div>
       </div>
     </div>

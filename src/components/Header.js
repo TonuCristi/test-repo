@@ -1,6 +1,6 @@
 import "../App.css";
 
-function Header() {
+function Header({ balance }) {
   return (
     <header className="header">
       <div className="wrapper">
@@ -9,7 +9,7 @@ function Header() {
           {new Intl.NumberFormat("de-DE", {
             style: "currency",
             currency: "USD",
-          }).format(15020151.23)}
+          }).format(balance)}
         </div>
       </div>
     </header>

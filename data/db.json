@@ -40,7 +40,7 @@
       "id": 5,
       "product_name": "Avocado",
       "icon": "🥑",
-      "current_points": 12,
+      "current_points": 0,
       "level_points": 20,
       "upgrade_cost": 4.5,
       "current_time": 50
